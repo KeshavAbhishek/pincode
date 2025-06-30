@@ -12,8 +12,6 @@ A sleek and simple React Native application that allows users to search Indian p
 - 📱 Clean and mobile-friendly UI
 - 🚀 Fast response and simple navigation
 
----
-
 ## 📷 Screenshots
 
 <!-- *(Add screenshots of the app UI here if available)* -->
@@ -22,13 +20,12 @@ A sleek and simple React Native application that allows users to search Indian p
 ![SS](./SS/Screenshot_1751284436.png)
 ![SS](./SS/Screenshot_1751284449.png)
 ![SS](./SS/Screenshot_1751284499.png) -->
-<img src="./SS/Screenshot_1751284409.png" alt="Logo" height="600"/><br><br>
+<img src="./SS/Screenshot_1751284409.png" alt="Logo" height="600"/>&nbsp;&nbsp;
 <img src="./SS/Screenshot_1751284420.png" alt="Logo" height="600"/><br><br>
-<img src="./SS/Screenshot_1751284436.png" alt="Logo" height="600"/><br><br>
+<img src="./SS/Screenshot_1751284436.png" alt="Logo" height="600"/>&nbsp;&nbsp;
 <img src="./SS/Screenshot_1751284449.png" alt="Logo" height="600"/><br><br>
-<img src="./SS/Screenshot_1751284478.png" alt="Logo" height="600"/><br><br>
-<img src="./SS/Screenshot_1751284499.png" alt="Logo" height="600"/>
----
+<img src="./SS/Screenshot_1751284478.png" alt="Logo" height="600"/>&nbsp;&nbsp;
+<img src="./SS/Screenshot_1751284499.png" alt="Logo" height="600"/><br><br>
 
 ## 🚀 Getting Started
 

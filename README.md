@@ -17,11 +17,12 @@ A sleek and simple React Native application that allows users to search Indian p
 ## 📷 Screenshots
 
 <!-- *(Add screenshots of the app UI here if available)* -->
-![Home](./SS/Screenshot_1751284409.png)
+<!-- ![Home](./SS/Screenshot_1751284409.png)
 ![SS](./SS/Screenshot_1751284420.png)
 ![SS](./SS/Screenshot_1751284436.png)
 ![SS](./SS/Screenshot_1751284449.png)
-![SS](./SS/Screenshot_1751284499.png)
+![SS](./SS/Screenshot_1751284499.png) -->
+<img src="./SS/Screenshot_1751284409.png" alt="Logo" width="200" height="100"/>
 ---
 
 ## 🚀 Getting Started

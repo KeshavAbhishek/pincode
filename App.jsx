@@ -4,6 +4,7 @@ import { styles } from './src/styles';
 import { ImageBackground } from 'react-native';
 import BodyFrame from './src/BodyFrame';
 import Result from './src/Result';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   const [result, setResult] = useState(false);

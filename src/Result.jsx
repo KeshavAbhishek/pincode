@@ -1,28 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Animated, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Pressable, ScrollView, Image } from 'react-native';
+// Result.jsx
+import React, { useState } from 'react';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Image,
+    TouchableWithoutFeedback,
+    Keyboard
+} from 'react-native';
 import { styles } from './styles';
 
-const Result = (props) => {
-    // const [offices, setOffices] = useState([]);
+const Result = ({ route, navigation }) => {
+    const { offices } = route.params;
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // useEffect(() => {
-    //     fetch('https://api.postalpincode.in/pincode/835217')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             if (data[0]?.Status === 'Success') {
-    //                 setOffices(data[0].PostOffice || []);
-    //             } else {
-    //                 setOffices([]);
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('API Error:', error);
-    //             setOffices([]);
-    //         });
-    // }, []);
-
-    const currentOffice = props.officeFound[currentIndex];
+    const currentOffice = offices[currentIndex];
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -31,7 +23,6 @@ const Result = (props) => {
                     <Text style={styles.resultText}>Result</Text>
                 </View>
 
-                {/* Show current card only */}
                 {currentOffice ? (
                     <View style={styles.resultCard}>
                         <Text style={styles.resultTextItem}>Name: {currentOffice.Name}</Text>
@@ -50,8 +41,7 @@ const Result = (props) => {
                     <Text style={styles.noResultText}>No post offices found.</Text>
                 )}
 
-                {/* Toggle Buttons */}
-                {props.officeFound.length > 1 && (
+                {offices.length > 1 && (
                     <View style={styles.toggleButtonContainer}>
                         <TouchableOpacity
                             style={[
@@ -61,33 +51,27 @@ const Result = (props) => {
                             onPress={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
                             disabled={currentIndex === 0}
                         >
-                            {/* <Text style={styles.toggleButtonText}>Previous</Text> */}
-                            <Image source={require('./static/btn.png')} style={styles.btnPrev}></Image>
+                            <Image source={require('./static/btn.png')} style={styles.btnPrev} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.backButton} onPress={() => { props.officeFoundFn([]); props.setBackTo(false) }}>
+                        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                             <Text style={styles.searchText}>Back</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={[
                                 styles.toggleButton,
-                                currentIndex === props.officeFound.length - 1 && styles.disabledButton,
+                                currentIndex === offices.length - 1 && styles.disabledButton,
                             ]}
                             onPress={() =>
-                                setCurrentIndex((prev) => Math.min(prev + 1, props.officeFound.length - 1))
+                                setCurrentIndex((prev) => Math.min(prev + 1, offices.length - 1))
                             }
-                            disabled={currentIndex === props.officeFound.length - 1}
+                            disabled={currentIndex === offices.length - 1}
                         >
-                            {/* <Text style={styles.toggleButtonText}>Next</Text> */}
-                            <Image source={require('./static/btn.png')} style={styles.btnNext}></Image>
+                            <Image source={require('./static/btn.png')} style={styles.btnNext} />
                         </TouchableOpacity>
                     </View>
                 )}
-
-                {/* <TouchableOpacity style={styles.backButton} onPress={() => {props.officeFoundFn([]);props.setBackTo(false)}}>
-                    <Text style={styles.searchText}>Back</Text>
-                </TouchableOpacity> */}
             </View>
         </TouchableWithoutFeedback>
     );

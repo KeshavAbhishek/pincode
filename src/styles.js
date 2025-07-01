@@ -247,4 +247,43 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
     },
+    bdy: {
+        width: '100%',
+        // height: '80%',
+        // backgroundColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center',
+        justifyContent: 'space-evenly',
+        flex: 1
+
+    },
+    tile: {
+        paddingVertical: 50,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        alignItems: 'center',
+        height: RFValue(200),
+        aspectRatio: 1868/2269,
+        borderRadius: 15,
+        backgroundColor: '#f9f9f9', // light texture base
+        elevation: 6, // Android shadow
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+    },
+
+    logoSearch: {
+        height: RFValue(110),
+        aspectRatio: 2029 / 2274,
+    },
+    postName: {
+        height: RFValue(110),
+        aspectRatio: 2269 / 1868
+    },
+    label:{
+        fontSize: RFValue(15),
+        marginTop: 20,
+        fontWeight: 'bold'
+    }
 })

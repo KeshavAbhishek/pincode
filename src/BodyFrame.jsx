@@ -1,19 +1,35 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Animated, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Pressable, Alert } from 'react-native';
+// BodyFrame.jsx
+import React, { useState, useRef, useEffect } from 'react';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Animated,
+    Dimensions,
+    TextInput,
+    TouchableWithoutFeedback,
+    Keyboard,
+    Alert
+} from 'react-native';
 import { styles } from './styles';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const BodyFrame = (props) => {
-    const [activeTab, setActiveTab] = useState('pincode');
-    const slideAnim = useRef(new Animated.Value(0)).current;
-    const [pincode, setPincode] = useState();
-    const [officename, setOfficeName] = useState();
-    const [type, setType] = useState('pincode');
+const BodyFrame = ({ route, navigation }) => {
+    const initialType = route?.params?.type || 'pincode';
+
+    const [activeTab, setActiveTab] = useState(initialType === 'postoffice' ? 'name' : 'pincode');
+    const slideAnim = useRef(new Animated.Value(initialType === 'postoffice' ? -SCREEN_WIDTH : 0)).current;
+
+    const [pincode, setPincode] = useState('');
+    const [officename, setOfficeName] = useState('');
+    const [type, setType] = useState(initialType);
     const [search, setSearch] = useState("Search");
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
+        setType(tab === 'pincode' ? 'pincode' : 'postoffice');
+
         Animated.timing(slideAnim, {
             toValue: tab === 'pincode' ? 0 : -SCREEN_WIDTH,
             duration: 300,
@@ -23,7 +39,7 @@ const BodyFrame = (props) => {
 
     const handleReq = async () => {
         const isPinValid = type === 'pincode' && pincode?.trim() !== '';
-        const isNameValid = type !== 'pincode' && officename?.trim() !== '';
+        const isNameValid = type === 'postoffice' && officename?.trim() !== '';
 
         if (isPinValid || isNameValid) {
             try {
@@ -33,38 +49,33 @@ const BodyFrame = (props) => {
                 const data = await response.json();
 
                 if (data[0]?.Status === 'Success') {
-                    props.officeFoundFn(data[0].PostOffice || []);
+                    const offices = data[0].PostOffice || [];
                     setSearch("Found");
                     setTimeout(() => {
-
-                        props.setGoTo(true);
-                    }, 450);
+                        navigation.navigate('Result', { offices });
+                    }, 400);
                 } else {
-                    props.officeFoundFn([]);
+                    Alert.alert("No Data", "No matching post offices found.");
                     setSearch("Search");
                 }
             } catch (error) {
                 console.error('API Error:', error);
-                props.officeFoundFn([]);
+                Alert.alert("Error", "Something went wrong while searching.");
                 setSearch("Search");
             }
         } else {
-            // Invalid input
-            props.officeFoundFn([]);
-            setSearch("Search");
+            Alert.alert("Invalid Input", "Please enter a valid pincode or office name.");
         }
     };
 
-
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
             <View style={styles.bodyFrame}>
                 {/* Tab Header */}
                 <View style={styles.tabHeader}>
                     <TouchableOpacity
                         style={[styles.tabButton, activeTab === 'pincode' && styles.activeTab]}
-                        onPress={() => { handleTabChange('pincode'); setType('pincode') }}
+                        onPress={() => handleTabChange('pincode')}
                         activeOpacity={0.8}
                     >
                         <Text style={styles.tabText}>By Pincode</Text>
@@ -72,7 +83,7 @@ const BodyFrame = (props) => {
 
                     <TouchableOpacity
                         style={[styles.tabButton, activeTab === 'name' && styles.activeTab]}
-                        onPress={() => { handleTabChange('name'); setType('postoffice') }}
+                        onPress={() => handleTabChange('name')}
                         activeOpacity={0.8}
                     >
                         <Text style={styles.tabText}>By Name</Text>
@@ -88,14 +99,14 @@ const BodyFrame = (props) => {
                 >
                     {/* PinCode Tab */}
                     <View style={[styles.tabContent, { width: SCREEN_WIDTH }]}>
-                        <Text style={styles.inputLabel}>Search by Pincode </Text>
+                        <Text style={styles.inputLabel}>Search by Pincode</Text>
                         <TextInput
                             style={styles.inputField}
                             placeholder="e.g. 110001"
                             placeholderTextColor="#999"
                             keyboardType="number-pad"
                             maxLength={6}
-                            onChangeText={(val) => { setPincode(val) }}
+                            onChangeText={setPincode}
                             value={pincode}
                         />
                     </View>
@@ -107,17 +118,18 @@ const BodyFrame = (props) => {
                             style={styles.inputField}
                             placeholder="e.g. Delhi"
                             placeholderTextColor="#999"
-                            onChangeText={(val) => { setOfficeName(val) }}
+                            onChangeText={setOfficeName}
                             value={officename}
                         />
                     </View>
                 </Animated.View>
+
                 <TouchableOpacity style={styles.search} onPress={handleReq}>
                     <Text style={styles.searchText}>{search}</Text>
                 </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
     );
-}
+};
 
 export default BodyFrame;

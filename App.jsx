@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, StatusBar, Image } from 'react-native';
-import { styles } from './src/styles';
-import { ImageBackground } from 'react-native';
+// App.jsx
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BodyFrame from './src/BodyFrame';
 import Result from './src/Result';
-import {NavigationContainer} from '@react-navigation/native';
+import { HomeScreen } from './src/HomeScreen'; // ➕ we will create this component next
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [result, setResult] = useState(false);
-  const [offices, setOffices] = useState([]);
-
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="gold" />
-
-      <View style={styles.navbar}>
-        <ImageBackground source={require('./src/static/Logo.png')} style={styles.logo} />
-      </View>
-      {result === false ?
-        <BodyFrame setGoTo={setResult} officeFound={offices} officeFoundFn={setOffices} />
-        :
-        <Result setBackTo={setResult} officeFound={offices} officeFoundFn={setOffices} />}
-      {/* <BodyFrame /> */}
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="BodyFrame" component={BodyFrame} />
+        <Stack.Screen name="Result" component={Result} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

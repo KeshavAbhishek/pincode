@@ -263,7 +263,7 @@ export const styles = StyleSheet.create({
         borderColor: '#ddd',
         alignItems: 'center',
         height: RFValue(200),
-        aspectRatio: 1868/2269,
+        aspectRatio: 1868 / 2269,
         borderRadius: 15,
         backgroundColor: '#f9f9f9', // light texture base
         elevation: 6, // Android shadow
@@ -281,9 +281,29 @@ export const styles = StyleSheet.create({
         height: RFValue(110),
         aspectRatio: 2269 / 1868
     },
-    label:{
+    label: {
         fontSize: RFValue(15),
         marginTop: 20,
         fontWeight: 'bold'
-    }
+    },
+    homeBottomButton: {
+        marginTop: 15,
+        backgroundColor: 'green',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        width: '40%',
+        marginHorizontal: 'auto'
+    },
+
+    homeBottomText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: RFValue(16),
+    },
+
+
 })

@@ -1,5 +1,5 @@
 // BodyFrame.jsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     View,
     Text,
@@ -124,8 +124,18 @@ const BodyFrame = ({ route, navigation }) => {
                     </View>
                 </Animated.View>
 
+                {/* Search Button */}
                 <TouchableOpacity style={styles.search} onPress={handleReq}>
                     <Text style={styles.searchText}>{search}</Text>
+                </TouchableOpacity>
+
+                {/* Home Button at Bottom */}
+                <TouchableOpacity
+                    style={styles.homeBottomButton}
+                    onPress={() => navigation.navigate('Home')}
+                    activeOpacity={0.9}
+                >
+                    <Text style={styles.homeBottomText}>Home</Text>
                 </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
